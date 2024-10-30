@@ -18,7 +18,7 @@ classifiers = [
     'Development Status :: 3 - Alpha'
 ]
 dynamic = ["version"]
-dependencies = ["matplotlib","opencv_python"]
+dependencies = ["matplotlib","opencv-python","numpy"]
 
 
 [project.urls]
