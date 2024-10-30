@@ -5,7 +5,7 @@ sys.path.append(pathlib.Path(__file__).parent.parent.as_posix())
 from src.showtens.util import import_torch, import_torchvision
 
 # None implemented yet
-from src.showtens.videos import saveVideo
+from src.showtens.videos import save_video
 
 curpath = pathlib.Path(__file__).parent
 
@@ -28,7 +28,7 @@ def test_video():
     video = video[::2]
 
     video_tile = torch.stack([randAug(video) for _ in range(3)], dim=0)  # (10,T,3,H,W)
-    saveVideo(
+    save_video(
         video_tile,
         folder="test_folder",
         name="see_same",

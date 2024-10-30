@@ -5,7 +5,7 @@ sys.path.append(pathlib.Path(__file__).parent.parent.as_posix())
 from src.showtens.util import import_torch, import_torchvision
 
 # None implemented yet
-from src.showtens import showImage, saveImage
+from src.showtens import show_image, save_image
 
 curpath = pathlib.Path(__file__).parent
 
@@ -18,7 +18,7 @@ def test_view():
 
     torch = import_torch()
     transf = import_torchvision().transforms
-    image = Image.open("whale.png")
+    image = Image.open(os.path.join(curpath, "test_folder", "whale.png"))
 
     whale = transf.ToTensor()(image)  # (3,H,W);
     randAug = transf.RandomResizedCrop(whale.shape[-2:])
@@ -26,8 +26,8 @@ def test_view():
 
     alpha_noise = torch.rand(9, 1, *whale.shape[-2:])
     whale_tile = torch.cat([whale_tile, alpha_noise], dim=1)  # (10,4,H,W)
-    showImage(whale_tile, columns=5, colorbar=False, max_width=None, padding=0, pad_value=1.0)
-    showImage(whale_tile[:, 2:3], columns=None, colorbar=True, max_width=500, padding=3, pad_value=0.0)
+    show_image(whale_tile, columns=5, colorbar=False, max_width=None, padding=0, pad_value=1.0)
+    show_image(whale_tile[:, 2:3], columns=None, colorbar=True, max_width=500, padding=3, pad_value=0.0)
 
 
 def test_save():
@@ -44,7 +44,7 @@ def test_save():
     randAug = transf.RandomResizedCrop(whale.shape[-2:])
     whale_tile = torch.stack([randAug(whale) for _ in range(9)], dim=0)  # (10,3,H,W)
 
-    saveImage(
+    save_image(
         whale_tile,
         folder="test_folder",
         name="whale_list",
@@ -54,7 +54,7 @@ def test_save():
         padding=0,
         pad_value=1.0,
     )
-    saveImage(
+    save_image(
         whale_tile[:, 2:],
         folder="test_folder",
         name="dawhales",
@@ -64,3 +64,5 @@ def test_save():
         padding=3,
         pad_value=0.0,
     )
+
+test_save()

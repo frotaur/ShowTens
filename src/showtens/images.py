@@ -8,7 +8,14 @@ torchvision = import_torchvision()
 
 
 @torch.no_grad()
-def showImage(tensor, columns=None, colorbar=False, max_width=None, padding=3, pad_value=0.0):
+def show_image(
+    tensor: torch.Tensor,
+    columns: int | None = None,
+    colorbar: bool = False,
+    max_width: int | None = None,
+    padding: int = 3,
+    pad_value: float = 0.0,
+):
     """ "
     Shows tensor as an image using pyplot.
     Any extra dimensions (*,C,H,W) are treated as batch dimensions.
@@ -33,16 +40,16 @@ def showImage(tensor, columns=None, colorbar=False, max_width=None, padding=3, p
 
 
 @torch.no_grad()
-def saveImage(
-    tensor,
-    folder,
-    name="imagetensor",
-    columns=None,
-    colorbar=False,
-    max_width=None,
-    padding=3,
-    pad_value=0.0,
-    create_folder=True,
+def save_image(
+    tensor: torch.Tensor,
+    folder: str,
+    name: str = "imagetensor",
+    columns: int | None = None,
+    colorbar: bool = False,
+    max_width: int | None = None,
+    padding: int = 3,
+    pad_value: float = 0.0,
+    create_folder: bool = True,
 ):
     """
     Saves tensor as a png image using pyplot.

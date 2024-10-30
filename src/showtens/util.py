@@ -5,7 +5,13 @@ torch = import_torch()
 
 
 @torch.no_grad()
-def gridify(tensor: torch.Tensor, max_width=None, columns=None, padding=3, pad_value=0.0):
+def gridify(
+    tensor: torch.Tensor,
+    max_width: int | None = None,
+    columns: int | None = None,
+    padding: int = 3,
+    pad_value: float = 0.0,
+):
     """
     Makes a grid of images/videos from a batch of images.
     Like torchvision's make_grid, but more flexible.

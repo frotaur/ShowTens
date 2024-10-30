@@ -1,3 +1,3 @@
 from .util import gridify
-from .images import showImage, saveImage
-from .videos import saveVideo
+from .images import show_image, save_image
+from .videos import save_video

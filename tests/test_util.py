@@ -1,9 +1,11 @@
-import sys,pathlib
+import sys,pathlib,os
 sys.path.append(pathlib.Path(__file__).parent.parent.as_posix())
 
 from src.showtens.util import gridify,import_torch,import_torchvision
 # None implemented yet
-from src.showtens import showImage
+
+curpath =  pathlib.Path(__file__).parent
+
 
 def test_grid_pytorch():
     from PIL import Image
@@ -12,7 +14,7 @@ def test_grid_pytorch():
 
     torchgrid = import_torchvision().utils.make_grid
 
-    image = Image.open("whale.png")
+    image = Image.open(os.path.join(curpath, "test_folder", "whale.png"))
     whale = transf.ToTensor()(image) # (3,H,W)
     randAug = transf.RandomResizedCrop(whale.shape[-2:])
 

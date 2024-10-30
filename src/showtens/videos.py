@@ -6,7 +6,14 @@ torch = import_torch()
 
 
 @torch.no_grad()
-def showVideo(tensor, fps=30, columns=None, max_width=None, padding=3, pad_value=0.0):
+def show_video(
+    tensor: torch.Tensor,
+    fps: int = 30,
+    columns: int | None = None,
+    max_width: int | None = None,
+    padding: int = 3,
+    pad_value: float = 0.0,
+):
     """
     Shows tensor as a video. Accepts both (T,H,W), (T,3,H,W) and (*,T,3,H,W) float tensors.
 
@@ -20,16 +27,16 @@ def showVideo(tensor, fps=30, columns=None, max_width=None, padding=3, pad_value
 
 
 @torch.no_grad()
-def saveVideo(
-    tensor,
-    folder,
-    name="videotensor",
-    fps=30,
-    columns=None,
-    max_width=None,
-    padding=3,
-    pad_value=0.0,
-    create_folder=True,
+def save_video(
+    tensor: torch.Tensor,
+    folder: str,
+    name: str = "videotensor",
+    fps: int = 30,
+    columns: int | None = None,
+    max_width: int | None = None,
+    padding: int = 3,
+    pad_value: float = 0.0,
+    create_folder: bool = True,
 ):
     """
     Saves tensor as a video. Accepts both (T,H,W), (T,3,H,W) and (*,T,3,H,W) float tensors.
