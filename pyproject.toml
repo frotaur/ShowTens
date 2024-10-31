@@ -20,6 +20,8 @@ classifiers = [
 dynamic = ["version"]
 dependencies = ["matplotlib","opencv-python","numpy"]
 
+[tool.ruff]
+line-length = 110
 
 [project.urls]
 "Homepage" = "https://github.com/frotaur/showtens"
