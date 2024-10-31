@@ -13,19 +13,24 @@ Make sure `torch`and `torchvision` are installed, as the package depends on them
 ## Usage
 ```python
 import torch
-from showTens import showImage
+from showtens import show_image
 
-image1 = torch.rand((3,100,100)) # (C,H,W) image
-showImage(image1) # Displays the image using matplotlib
-image2 = torch.rand((4,4,3,100,100)) # (B1,B2,C,H,W), two batch dimensions
-showImage(image2,colums=4) # Will display as a 4*4 grid
+image1 = torch.rand((3, 100, 100))  # (C,H,W) image
+show_image(image1)  # Displays the image using matplotlib
+image2 = torch.rand((4, 4, 3, 100, 100))  # (B1,B2,C,H,W), two batch dimensions
+# Will display as a 4*4 grid, 2 pixel padding, white padding color:
+show_image(image2, columns=4, padding=2, pad_value=1.0)
 
-from showTens import saveImage
-saveImage(tensor=image1,folder='saved_images',name='imagetensor')
+from showtens import save_image
 
-from showTens import saveVideo
-video1 = torch.rand((60,3,200,200))
-saveVideo(tensor=video1,folder='save_videos',name='videotensor',fps=30)
-video2 = torch.rand((4,3,200,200)) # (B,T,C,H,W), batch of videos
-saveVideo(tensor=video2,folder='save_videos',name='videobatch',fps=30,columns=2) # 2*2 video grid
+save_image(tensor=image1, folder="saved_images", name="imagetensor")
+
+from showtens import save_video
+
+video1 = torch.rand((60, 3, 200, 200))
+save_video(tensor=video1, folder="saved_videos", name="videotensor", fps=30)
+video2 = torch.rand((4, 60, 3, 200, 200))  # (B,T,C,H,W), batch of videos
+save_video(tensor=video2, folder="saved_videos", name="videobatch", fps=30, columns=2)  # 2*2 video grid
+
+# show_video not available yet
 ```
