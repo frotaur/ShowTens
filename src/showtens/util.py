@@ -11,21 +11,21 @@ def gridify(
     columns: int | None = None,
     padding: int = 3,
     pad_value: float = 0.0,
-):
+) -> torch.Tensor:
     """
     Makes a grid of images/videos from a batch of images.
     Like torchvision's make_grid, but more flexible.
-    Accepts (B,*,H,W)
+    Accepts (B,\\*,H,W)
 
     Args:
-        tensor : (B,*,H,W) tensor
+        tensor : (B,\\*,H,W) tensor
         max_width : max width of the output grid. Resizes images to fit the width
         columns : number of columns of the grid. If None, uses 8 or less
         padding : padding to add to the images
         pad_value : color of the padding
 
     Returns:
-        (*,H',W') tensor, representing the grid of images/videos
+        (\\*,H',W') tensor, representing the grid of images/videos
     """
     transf = import_torchvision().transforms
 
@@ -37,9 +37,7 @@ def gridify(
         numCol = min(8, B)
 
     black_cols = (-B) % numCol
-    tensor = torch.cat(
-        [tensor, torch.zeros(black_cols, *tensor.shape[1:], device=device)], dim=0
-    )  # (B',*,H,W)
+    tensor = torch.cat([tensor, torch.zeros(black_cols, *tensor.shape[1:], device=device)], dim=0)  # (B',*,H,W)
     tensor = transf.Pad(padding, fill=pad_value)(tensor)  # (B',*,H+padding*2,W+padding*2)
 
     B, H, W = tensor.shape[0], tensor.shape[-2], tensor.shape[-1]

@@ -13,15 +13,18 @@ def show_video(
     max_width: int | None = None,
     padding: int = 3,
     pad_value: float = 0.0,
-):
+) -> None:
     """
-    Shows tensor as a video. Accepts both (T,H,W), (T,3,H,W) and (*,T,3,H,W) float tensors.
+    Shows tensor as a video. Accepts both **(T,H,W)**, **(T,3,H,W)** and **(\\*,T,3,H,W)** tensors.
+    Tensor should be a float tensor with values in [0,1]. Clips the values otherwise.
+
+    NOT IMPLEMENTED YET
 
     Args:
-    tensor : (T,H,W) or (T,3,H,W) or (*,T,3,H,W) float tensor
-    columns : number of columns to use for the grid of videos (default 8 or less)
-    fps : fps of the video (default 30)
-    out_size : Height of output video (height adapts to not deform videos) (default 800)
+        tensor : (T,H,W) or (T,3,H,W) or (\\*,T,3,H,W) float tensor
+        columns : number of columns to use for the grid of videos (default 8 or less)
+        fps : fps of the video (default 30)
+        out_size : Height of output video (height adapts to not deform videos) (default 800)
     """
     return NotImplementedError("showVideo not implemented yet, use saveVideo instead")
 
@@ -37,20 +40,20 @@ def save_video(
     padding: int = 3,
     pad_value: float = 0.0,
     create_folder: bool = True,
-):
+) -> None:
     """
-    Saves tensor as a video. Accepts both (T,H,W), (T,3,H,W) and (*,T,3,H,W) float tensors.
-    Assumes that the tensor value are in [0,1], clips them otherwise.
+    Shows tensor as a video. Accepts both **(T,H,W)**, **(T,3,H,W)** and **(\\*,T,3,H,W)** tensors.
+    Tensor should be a float tensor with values in [0,1]. Clips the values otherwise.
 
     Args:
-    tensor : (T,H,W) or (T,3,H,W) or (*,T,3,H,W) float tensor
-    folder : path to save the video
-    name : name of the video
-    fps : fps of the video (default 30)
-    columns : number of columns to use for the grid of videos (default 8 or less)
-    max_width : maximum width of the image
-    padding : number of pixels between images in the grid
-    pad_value : inter-padding value for the grid of images
+        tensor : (T,H,W) or (T,3,H,W) or (\\*,T,3,H,W) float tensor
+        folder : path to save the video
+        name : name of the video
+        fps : fps of the video (default 30)
+        columns : number of columns to use for the grid of videos (default 8 or less)
+        max_width : maximum width of the image
+        padding : number of pixels between images in the grid
+        pad_value : inter-padding value for the grid of images
     """
     _create_folder(folder, create_folder)
 
@@ -74,16 +77,16 @@ def save_video(
 
 def _format_video(tensor, columns=None, fps=30, max_width=None, padding=3, pad_value=0.0):
     """
-    Formats tensor as a video. Accepts both (T,H,W), (T,3,H,W) and (*,T,3,H,W) float tensors.
+    Formats tensor as a video. Accepts both (T,H,W), (T,3,H,W) and (\\*,T,3,H,W) float tensors.
     Assumes that the tensor value are in [0,1], clips them otherwise.
 
     Args:
-    tensor : (T,H,W) or (T,3,H,W) or (*,T,3,H,W) float tensor
-    columns : number of columns to use for the grid of videos (default 8 or less)
-    fps : fps of the video (default 30)
-    max_width : maximum width of the image
-    padding : number of pixels between images in the grid
-    pad_value : inter-padding value for the grid of images
+        tensor : (T,H,W) or (T,3,H,W) or (\\*,T,3,H,W) float tensor
+        columns : number of columns to use for the grid of videos (default 8 or less)
+        fps : fps of the video (default 30)
+        max_width : maximum width of the image
+        padding : number of pixels between images in the grid
+        pad_value : inter-padding value for the grid of images
     """
     tensor = tensor.detach().cpu()
     extra_params = dict(columns=columns, fps=fps, max_width=max_width, pad_value=pad_value, padding=padding)
@@ -106,6 +109,4 @@ def _format_video(tensor, columns=None, fps=30, max_width=None, padding=3, pad_v
         tensor = tensor.reshape((-1, *tensor.shape[-4:]))
         return _format_video(tensor, **extra_params)
     else:
-        raise ValueError(
-            f"Tensor shape should be (T,H,W), (T,3,H,W) or (*,T,3,H,W), but got : {tensor.shape} !"
-        )
+        raise ValueError(f"Tensor shape should be (T,H,W), (T,3,H,W) or (*,T,3,H,W), but got : {tensor.shape} !")

@@ -15,18 +15,18 @@ def show_image(
     max_width: int | None = None,
     padding: int = 3,
     pad_value: float = 0.0,
-):
-    """ "
-    Shows tensor as an image using pyplot.
-    Any extra dimensions (*,C,H,W) are treated as batch dimensions.
+) -> None:
+    """
+    Shows tensor of shape **(\\*,C,H,W)** as an image using pyplot.
+    Any extra dimensions are treated as batch dimensions, and displayed in a grid.
 
     Args:
-    tensor : (H,W) or (C,H,W) or (*,C,H,W) tensor to display
-    columns : number of columns to use for the grid of images (default 8 or less)
-    colorbar : whether to add a colorbar to the image, only works for grayscale images (default False)
-    max_width : maximum width of the image
-    padding : number of pixels between images in the grid
-    pad_value : inter-padding value for the grid of images
+        tensor : (H,W) or (C,H,W) or (\\*,C,H,W) tensor to display
+        columns : number of columns to use for the grid of images (default 8 or less)
+        colorbar : whether to add a colorbar to the image, only works for grayscale images (default False)
+        max_width : maximum width of the image
+        padding : number of pixels between images in the grid
+        pad_value : inter-padding value for the grid of images
     """
     tensor = _format_image(
         tensor, columns=columns, max_width=max_width, padding=padding, pad_value=pad_value
@@ -50,21 +50,21 @@ def save_image(
     padding: int = 3,
     pad_value: float = 0.0,
     create_folder: bool = True,
-):
+) -> None:
     """
-    Saves tensor as a png image using pyplot.
-    Any extra dimensions (*,C,H,W) are treated as batch dimensions.
+    Saves tensor of shape **(\\*,C,H,W)** as an image using pyplot.
+    Any extra dimensions are treated as batch dimensions, and displayed in a grid.
 
     Args:
-    tensor : (H,W) or (C,H,W) or (*,C,H,W) tensor to display
-    folder : relative path of folder where to save the image
-    name : name of the image (do not include extension)
-    columns : number of columns to use for the grid of images (default 8 or less)
-    colorbar : whether to add a colorbar to the image, only works for grayscale images (default False)
-    max_width : maximum width of the image
-    padding : number of pixels between images in the grid
-    pad_value : inter-padding value for the grid of images
-    create_folder : whether to create the folder if it does not exist (default True)
+        tensor : (H,W) or (C,H,W) or (\\*,C,H,W) tensor to display
+        folder : relative path of folder where to save the image
+        name : name of the image (do not include extension)
+        columns : number of columns to use for the grid of images (default 8 or less)
+        colorbar : whether to add a colorbar to the image, only works for grayscale images (default False)
+        max_width : maximum width of the image
+        padding : number of pixels between images in the grid
+        pad_value : inter-padding value for the grid of images
+        create_folder : whether to create the folder if it does not exist (default True)
     """
     _create_folder(folder, create_folder)
 
@@ -83,14 +83,14 @@ def save_image(
 def _format_image(tensor, columns=None, max_width=None, padding=3, pad_value=0.0):
     """ "
     Shows tensor as an image using pyplot.
-    Any extra dimensions (*,C,H,W) are treated as batch dimensions.
+    Any extra dimensions **(\\*,C,H,W)** are treated as batch dimensions.
 
     Args:
-    tensor : (H,W) or (C,H,W) or (*,C,H,W) tensor to display
-    columns : number of columns to use for the grid of images (default 8 or less)
-    max_width : maximum width of the image
-    padding : number of pixels between images in the grid
-    pad_value : inter-padding value for the grid of images
+        tensor : (H,W) or (C,H,W) or (\\*,C,H,W) tensor to display
+        columns : number of columns to use for the grid of images (default 8 or less)
+        max_width : maximum width of the image
+        padding : number of pixels between images in the grid
+        pad_value : inter-padding value for the grid of images
     """
     tensor = tensor.detach().cpu()
 
