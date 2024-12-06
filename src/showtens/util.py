@@ -101,7 +101,14 @@ def _format_image(
     """
     tensor = tensor.detach().cpu()
 
-    extra_params = dict(columns=columns, max_width=max_width, pad_value=pad_value, padding=padding)
+    extra_params = dict(
+        columns=columns,
+        max_width=max_width,
+        pad_value=pad_value,
+        padding=padding,
+        rescale=rescale,
+        clamp_range=clamp_range,
+    )
     if len(tensor.shape) == 2:
         # Add batch and channel dimensions
         return _format_image(tensor[None, :, :], **extra_params)
