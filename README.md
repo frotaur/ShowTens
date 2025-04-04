@@ -10,6 +10,9 @@ ShowTens is a simple pytorch package that allows painless and flexible visualiza
 
 Make sure `torch`and `torchvision` are installed, as the package depends on them.
 
+## Documentation
+Documentation can be found at https://frotaur.github.io/ShowTens/ 
+
 ## Usage
 ```python
 import torch
